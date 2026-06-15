@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>吃人 - 班级抓人游戏官网</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", sans-serif;
+        }
+
+        body {
+            background-color: #181c25;
+            color: #f1f1f1;
+            line-height: 1.7;
+        }
+
+        /* 导航栏 */
+        header {
+            background: rgba(24, 28, 37, 0.95);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 999;
+            border-bottom: 2px solid #ff6b35;
+        }
+
+        .nav-box {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 20px;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+            color: #ff6b35;
+            text-decoration: none;
+        }
+
+        .nav a {
+            color: #ccc;
+            text-decoration: none;
+            margin-left: 28px;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: #ff6b35;
+        }
+
+        /* 首页横幅 */
+        .banner {
+            height: 100vh;
+            background: linear-gradient(rgba(24, 28, 37, 0.75), rgba(24, 28, 37, 0.85)), 
+            url("https://picsum.photos/id/10/1920/1080") center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 70px;
+        }
+
+        .banner h1 {
+            font-size: 64px;
+            color: #ff6b35;
+            margin-bottom: 20px;
+            text-shadow: 0 0 12px rgba(255, 107, 53, 0.4);
+        }
+
+        .banner p {
+            font-size: 22px;
+            color: #ddd;
+            max-width: 750px;
+            margin-bottom: 45px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: #ff6b35;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 18px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #e55a2b;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 22px rgba(255, 107, 53, 0.35);
+        }
+
+        /* 通用区块 */
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 38px;
+            margin-bottom: 60px;
+            color: #fff;
+            position: relative;
+        }
+
+        .title::after {
+            content: "";
+            display: block;
+            width: 90px;
+            height: 3px;
+            background: #ff6b35;
+            margin: 16px auto;
+        }
+
+        /* 游戏介绍 */
+        .intro {
+            display: flex;
+            gap: 45px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .intro-text {
+            flex: 1;
+            min-width: 320px;
+        }
+
+        .intro-text h3 {
+            font-size: 25px;
+            color: #ff8c5a;
+            margin-bottom: 22px;
+        }
+
+        .intro-text p {
+            color: #c8cdd6;
+            font-size: 17px;
+            margin-bottom: 16px;
+        }
+
+        .intro-img {
+            flex: 1;
+            min-width: 320px;
+        }
+
+        .intro-img img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 6px 28px rgba(0,0,0,0.4);
+        }
+
+        /* 游戏规则 */
+        .rule-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 32px;
+        }
+
+        .rule-card {
+            background: #222833;
+            padding: 32px;
+            border-radius: 10px;
+            border: 1px solid #333a47;
+            transition: transform 0.3s;
+        }
+
+        .rule-card:hover {
+            transform: translateY(-7px);
+            border-color: #ff6b35;
+        }
+
+        .rule-card h4 {
+            font-size: 21px;
+            color: #ff6b35;
+            margin-bottom: 14px;
+        }
+
+        .rule-card p {
+            color: #b4bacc;
+        }
+
+        /* 玩法亮点 */
+        .fun-area {
+            background: #1e232d;
+        }
+
+        /* 活动相册 */
+        .photo-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 22px;
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .photo-item img:hover {
+            transform: scale(1.06);
+        }
+
+        /* 页脚 */
+        footer {
+            background: #12151c;
+            text-align: center;
+            padding: 35px 20px;
+            border-top: 1px solid #2c323f;
+            color: #888;
+            font-size: 15px;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+            }
+            .banner h1 {
+                font-size: 42px;
+            }
+            .title {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <div class="nav-box">
+            <a href="#" class="logo">吃人 · 班级抓人游戏</a>
+            <div class="nav">
+                <a href="#home">首页</a>
+                <a href="#about">游戏介绍</a>
+                <a href="#rule">游戏规则</a>
+                <a href="#fun">趣味亮点</a>
+                <a href="#photo">活动相册</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 首页横幅 -->
+    <section class="banner" id="home">
+        <h1>吃人</h1>
+        <p>班级经典抓人小游戏，课间欢乐互动，奔跑追逐，快乐满满！</p>
+        <a href="#about" class="btn">了解玩法</a>
+    </section>
+
+    <!-- 游戏介绍 -->
+    <section class="section" id="about">
+        <h2 class="title">游戏介绍</h2>
+        <div class="intro">
+            <div class="intro-text">
+                <h3>什么是“吃人”？</h3>
+                <p>“吃人”是我们班级内部对**抓人游戏**的趣味称呼，是大家课间、体育课最喜爱的集体活动。</p>
+                <p>游戏分为抓捕者与躲避者两大阵营，抓捕者需要追逐并碰到其他人，被碰到的玩家就会加入抓捕队伍。</p>
+                <p>全员参与、自由奔跑，既能放松学习压力，又能增进同学之间的友谊，充满欢声笑语。</p>
+            </div>
+            <div class="intro-img">
+                <img src="https://picsum.photos/id/11/600/400" alt="课间游戏">
+            </div>
+        </div>
+    </section>
+
+    <!-- 游戏规则 -->
+    <section class="section fun-area" id="rule">
+        <h2 class="title">游戏规则</h2>
+        <div class="rule-list">
+            <div class="rule-card">
+                <h4>阵营划分</h4>
+                <p>开局选出1~3名抓捕者，其余同学全部为躲避者，随机分配，公平开局。</p>
+            </div>
+            <div class="rule-card">
+                <h4>抓人判定</h4>
+                <p>抓捕者用手碰到躲避者即为“抓到”，被抓到者立刻转为新的抓捕者。</p>
+            </div>
+            <div class="rule-card">
+                <h4>安全区域</h4>
+                <p>划定固定安全范围，禁止追逐打闹，保障所有人的活动安全。</p>
+            </div>
+            <div class="rule-card">
+                <h4>游戏胜负</h4>
+                <p>当所有躲避者都被抓到，本局游戏结束，重新开启新一轮对战。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 趣味亮点 -->
+    <section class="section" id="fun">
+        <h2 class="title">游戏亮点</h2>
+        <div class="rule-list">
+            <div class="rule-card">
+                <h4>全员同乐</h4>
+                <p>不分人数、不分男女，全班同学都能一起参与，热闹又有趣。</p>
+            </div>
+            <div class="rule-card">
+                <h4>放松身心</h4>
+                <p>告别书本压力，课间适当运动，活跃身体，缓解学习疲惫。</p>
+            </div>
+            <div class="rule-card">
+                <h4>互动交友</h4>
+                <p>在追逐嬉戏中拉近同学距离，增强班级凝聚力。</p>
+            </div>
+            <div class="rule-card">
+                <h4>简单易玩</h4>
+                <p>规则简单易懂，不用道具，随时随地都能开局玩耍。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 活动相册 -->
+    <section class="section fun-area" id="photo">
+        <h2 class="title">活动相册</h2>
+        <div class="photo-list">
+            <div class="photo-item">
+                <img src="https://picsum.photos/id/12/500/300" alt="游戏瞬间">
+            </div>
+            <div class="photo-item">
+                <img src="https://picsum.photos/id/13/500/300" alt="集体玩耍">
+            </div>
+            <div class="photo-item">
+                <img src="https://picsum.photos/id/14/500/300" alt="课间时光">
+            </div>
+            <div class="photo-item">
+                <img src="https://picsum.photos/id/15/500/300" alt="欢乐时刻">
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>班级趣味游戏 · 吃人（抓人游戏） | 快乐课间，安全玩耍</p>
+        <p style="margin-top: 10px;">文明游戏，注意安全，友谊第一，娱乐第二</p>
+    </footer>
+
+    <!-- 平滑滚动 -->
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
