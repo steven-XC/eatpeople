@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>吃人 - 班级抓人游戏官网</title>
+    <title>吃人 - 班级抓人游戏官网（线下关停状态）</title>
     <style>
         * {
             margin: 0;
@@ -16,6 +17,61 @@
             background-color: #181c25;
             color: #f1f1f1;
             line-height: 1.7;
+        }
+
+        /* 关服弹窗遮罩 */
+        .server-notice-mask {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.92);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .notice-box {
+            background: #222833;
+            border: 2px solid #ff6b35;
+            border-radius: 12px;
+            max-width: 520px;
+            width: 100%;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        .notice-box h2 {
+            color: #ff6b35;
+            font-size: 30px;
+            margin-bottom: 24px;
+        }
+        .notice-box p {
+            color: #d0d6e0;
+            font-size: 17px;
+            margin-bottom: 14px;
+            line-height: 1.8;
+        }
+        .notice-sign {
+            margin-top: 26px;
+            color: #aaa;
+            font-size: 15px;
+        }
+        .confirm-btn {
+            margin-top: 32px;
+            padding: 14px 46px;
+            background: #ff6b35;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .confirm-btn:hover {
+            background: #e55a2b;
+            transform: scale(1.05);
         }
 
         /* 导航栏 */
@@ -237,10 +293,26 @@
             .title {
                 font-size: 30px;
             }
+            .notice-box h2 {
+                font-size: 24px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- 打开页面自动弹出关服通知弹窗 -->
+    <div class="server-notice-mask" id="noticeMask">
+        <div class="notice-box">
+            <h2>线下游戏关服通知</h2>
+            <p>感谢您陪伴我们吃人集团这么多年，很抱歉因为种种原因需要关停。</p>
+            <p>关停线下游戏后，我们的网站还会继续开放，更新频率下降，欢迎回来！</p>
+            <div class="notice-sign">
+                ——2026年6月25日晚6:41 吃人集团
+            </div>
+            <button class="confirm-btn" onclick="closeNotice()">我已知晓，进入网站</button>
+        </div>
+    </div>
+
     <!-- 导航栏 -->
     <header>
         <div class="nav-box">
@@ -325,21 +397,21 @@
         </div>
     </section>
 
-    <!-- 活动相册 -->
+    <!-- 活动相册（已替换为你提供的4张图片链接） -->
     <section class="section fun-area" id="photo">
         <h2 class="title">活动相册</h2>
         <div class="photo-list">
             <div class="photo-item">
-                <img src="https://picsum.photos/id/12/500/300" alt="游戏瞬间">
+                <img src="https://s1.img-e.com/20260627/6a3fbbba9ba90.jpg" alt="游戏瞬间">
             </div>
             <div class="photo-item">
-                <img src="https://picsum.photos/id/13/500/300" alt="集体玩耍">
+                <img src="https://s1.img-e.com/20260627/6a3fbbbc3b7fc.jpg" alt="集体玩耍">
             </div>
             <div class="photo-item">
-                <img src="https://picsum.photos/id/14/500/300" alt="课间时光">
+                <img src="https://s1.img-e.com/20260627/6a3fbbbd6992a.jpg" alt="课间时光">
             </div>
             <div class="photo-item">
-                <img src="https://picsum.photos/id/15/500/300" alt="欢乐时刻">
+                <img src="https://s1.img-e.com/20260627/6a3fbbbe69547.jpg" alt="欢乐时刻">
             </div>
         </div>
     </section>
@@ -350,8 +422,14 @@
         <p style="margin-top: 10px;">文明游戏，注意安全，友谊第一，娱乐第二</p>
     </footer>
 
-    <!-- 平滑滚动 -->
+    <!-- 功能脚本 -->
     <script>
+        // 关闭关服弹窗
+        function closeNotice() {
+            document.getElementById("noticeMask").style.display = "none";
+        }
+
+        // 页面内平滑滚动
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
